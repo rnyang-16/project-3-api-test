@@ -23,18 +23,9 @@ export default {
     var config = {
       headers: {'Access-Control-Allow-Origin': '*'}
     };
-    return axios.get('https://api.upcdatabase.org/search/?query=book&apikey=0E15CAC54EBA008932E01DCBD1B848BA', config)
+    return axios.get('https://cors-anywhere.herokuapp.com/https://api.upcdatabase.org/search/?query='+searchText+'&apikey=0E15CAC54EBA008932E01DCBD1B848BA', config)
   },
-  productSearchPollSession: function(jobid) {
-    return axios({
-      "method":"GET",
-      "url":"https://price-analytics.p.rapidapi.com/job/" + jobid,
-      "headers":{
-      "content-type":"application/octet-stream",
-      "x-rapidapi-host":"price-analytics.p.rapidapi.com",
-      "x-rapidapi-key":"1c0aa1b244msh08083ef4d7da1ccp1a4332jsn8c630e6ef8c2",
-      "useQueryString":true
-      }
-    })
+  productSearchKeyword: function(searchText) {
+    return axios.get('https://api.barcodespider.com/v1/search?token=842b986ae65f025eead8&s=samsung%20galaxy'+encodeURIComponent(searchText))
   }
 };

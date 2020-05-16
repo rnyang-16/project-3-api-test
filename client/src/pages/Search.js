@@ -35,10 +35,10 @@ function Search() {
   function handleSearchSubmit(event) {
     event.preventDefault();
     console.log(formObject.search);
-    API.productSearchBarcode(formObject.search)
+    API.productSearchKeyword(formObject.search)
       .then(res => {
         console.log(res);
-        const products = res.body.items;
+        const products = res.data.Data;
         setProducts(products);
       }
     )

@@ -3,6 +3,39 @@ import DataAreaContext from "../../utils/DataAreaContext";
 
 class SearchProductCards extends React.Component {
   static contextType = DataAreaContext;
+
+  createPriceTags = (stores) => {
+    let rows = []
+    for (let i = 0; i < stores.length; i++) {
+      let row = (
+        <tr>
+          <td>
+            <a href={stores[i].link}
+              className="btn m-1"><i>{stores[i].store_name}</i></a>
+          </td>
+          <td>
+            <p>{stores[i].price} {stores[i].currency}</p>
+          </td>
+        </tr>
+      )
+      rows.push(row)
+    }
+    return (
+      <table className='responsive-table highlight'>
+        <thead>
+          <tr>
+            <th>Website</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
+      
+    )
+  }
+
   createCards = () => {
     let cols = []
 
@@ -13,27 +46,25 @@ class SearchProductCards extends React.Component {
           <div className="card-header">
             <div className="row">
               <div className="col s6">
-                <h4 className="card-title">{this.context.products[i].name}</h4>
+                <h4 className="card-title">{this.context.products[i].item_attributes.title}</h4>
               </div>
               <div className="col s6">
-                <a href={this.context.products[i].url} target="_blank"
-                className="btn m-1"><i>View</i></a>
                 <a href="#"
                 className="btn m-1" onClick={() => this.context.handleSaveBook(this.context.products[i])}><i>Save</i></a>
               </div>
             </div>
           </div>
           <div className="card-body">
-            
             <div className="row">
-              <div className="col 6">
-                <p className="category">Title: {this.context.products[i].title}</p>
-                <p className="category">Description: {this.context.products[i].description}</p>
+              <div className="col s8">
+                <p className="category">{this.context.products[i].item_attributes.description}</p>
               </div>
-              <div className="col s6">
-                <p className="category">{this.context.products[i].price} {this.context.products[i].currency}</p>
+              <div className="col s4">
+                <img src={this.context.products[i].item_attributes.image} 
+                className="img-fluid" alt="Responsive"/>
               </div>
             </div>
+            {this.createPriceTags(this.context.products[i].Stores)}
           </div>
         </div>
       )
